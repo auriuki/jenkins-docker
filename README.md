@@ -2,7 +2,7 @@
 
 # Read before
 [ALWAYS START FROM OFFICIAL DOCUMENTAION!!! - click it](https://jenkins.io/doc/book/installing/)
-It's strongly said to run Jenkins in Docker!!! **Don't even try run Jenkins on Windows directly!!!** Well you can, for simple tasks, but don't expect that everything will work (like Jenkinsfile, dockers). For it use Jenkins on [Docker](https://docs.docker.com/get-started/).
+It's strongly said to run Jenkins in Docker on Windows!!! **Don't even try run Jenkins on Windows directly!!!** Well you can, for simple tasks, but don't expect that everything will work (like Jenkinsfile, dockers). For it use Jenkins on [Docker](https://docs.docker.com/get-started/).
 
 ## Using Simple Docker for Jenkins with Docker inside
 Project contains instruction how to setup simple Docker container with Jenkins with Docker inside.
