@@ -1,8 +1,8 @@
 # jenkins-docker
 
 # Read before
-[ALWAYS START FROM OFFICIAL DOCUAMENTAION - click it](https://jenkins.io/doc/book/installing/)
-It's strongly said to run Jenkins in Docker!!! **Don't even try run Jenkins on Windows!!!**
+[ALWAYS START FROM OFFICIAL DOCUMENTAION!!! - click it](https://jenkins.io/doc/book/installing/)
+It's strongly said to run Jenkins in Docker!!! **Don't even try run Jenkins on Windows directly!!!** Well you can, for simple tasks, but don't expect that everything will work (like Jenkinsfile, dockers). For it use Jenkins on [Docker](https://docs.docker.com/get-started/).
 
 ## Simple docker file for jenkins with docker inside
 Dockerfile for Jenkins with Docker inside
@@ -35,10 +35,10 @@ I spent too much time on solving integration between windows, wsl and docker, co
 
 #### Solution
 The best solution turned out to be use Docker image with Jenkins with Docker inside as it is suggested in official Jenkins documentation, so don't event try run Jenkins on Wondows without doceker! 
-Well you can use it without docker only for simple tasks. 
+Well you can use it without docker, but only for a simple tasks. 
 
 
-Therefore, as the solution I this README to guide you how to setup easily working Jenkins on Windows.
+Therefore, as the solution I create this README to guide you how to setup easily working Jenkins on Windows.
 
 # Installation
 ## Docker on Windows
@@ -60,19 +60,10 @@ In order to run docker CPU Virtualization must be enabled. You can enable it in 
 Check if virtualization [is enabled](https://docs.docker.com/docker-for-windows/troubleshoot/#virtualization-must-be-enabled)
 
 ## Build docker image and run
-- Checkout this repository or copy Dockerfile to any location
-- Open Command Prompt (Win+R, typ cmd)
-- Go to place with Dockerfile
-
-- Find build docker container
-$ docker container ls
-```
-```bash
-CONTAINER ID        IMAGE               COMMAND                  CREATED             STATUS              PORTS                                              NAMES
-2535364c7a3e        3f56b90c6bb8        "/sbin/tini -- /usr/…"   About an hour ago   Up About an hour    0.0.0.0:8080->8080/tcp, 0.0.0.0:50000->50000/tcp   jenkins
-```
-- Copy docker *CONTAINER ID* 
-- Run docker. E.g.
+- create any directory for Jenkins files 
+(Jenkins in Docker will be installed outside docker image and will be mounted - to be able 
+recreate environment without losing jenkins configuration, jobs, workspace, installed additional plugins, etc.)
+- use command line and execute instruction below
 ```cmd
 docker run ^
   -u root ^
@@ -85,7 +76,14 @@ docker run ^
   --name jenkins ^
   jenkinsci/blueocean
 ```
-
+Where:<br>
+- `-u root` - is needed to be able bind docker service with jenkins<br>
+- `-d` - run as deamon, so you can detach console window<br>
+- `-p 8080:8080` and `-p 50000:50000` - expose jenkins ports for main Jenkins and slave communication<br>
+- `-v /var/run/docker.sock:/var/run/docker.sock` - mount/bid docker sockets<br>
+- `--name jenkins` - alias for created container - e.g. to be able login docker machine easily<br>
+- `jenkinsci/blueocean` - name of docker used to create Jenkins - released everytime when new blue ocean is released <br>
+More details on official Jenkins documentation
 
 ### Running created container
 ```bash
@@ -93,11 +91,18 @@ $ docker container start jenkins
 ```
 
 ### Removing container and image
+###### Listing running container
+```bash
+C:\Users\Yuki>docker ps
+CONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS              PORTS                                              NAMES
+42e3edd6087b        jenkinsci/blueocean   "/sbin/tini -- /usr/…"   12 minutes ago      Up 12 minutes       0.0.0.0:8080->8080/tcp, 0.0.0.0:50000->50000/tcp   jenkins
+``````
 ###### Stop container
 Stop container before removing. 
 ```bash
 $ docker container stop jenkins
 ```
+You can use Container ID instead alias name
 ###### Remove container
 Stopping and removing container is required to be able rebuild docker (container)
 ```bash
@@ -105,8 +110,28 @@ $ docker container rm jenkins
 ```
 ###### Remove image
 ```bash
-$ docker image rm jenkins
+$ docker image rm jenkinsci/blueocean
 ``` 
+
+###### Bulk removing images and containers:
+Windows:
+```cmd
+@echo off
+FOR /f "tokens=*" %%i IN ('docker ps -aq') DO docker rm %%i
+FOR /f "tokens=*" %%i IN ('docker images --format "{{.ID}}"') DO docker rmi %%i
+```
+Linux
+```bash
+#!/bin/bash
+# Delete all containers
+$ docker rm $(docker ps -a -q)
+# Delete all images
+$ docker rmi $(docker images -q)
+```
+Or short (on windows as well):
+```bash
+$ docker system prune
+```
 
 ## Jenkins configuration
 Open web browser and type address `localhost:8080` and follow instruction: [Unlocking Jenkins](https://jenkins.io/doc/book/installing/#unlocking-jenkins).<br/> 
@@ -115,6 +140,9 @@ The `/var/jenkins_home/secrets/initialAdminPassword` file is located under mount
 (`/var/jenkins_home` is "mapped" to `D:/Jenkins_docker`)
 
 I suggest install without any plugins (select None) and add it later.
+
+And that's it. You can open webbrowser, typ [http://localhost:8080](http://localhost:8080) and start using jenkins with docker.<br>
+E.g. Open Blue ocean view, create new pipeline, use e.g. github, add token, project and that's it. You can run Jenkinsfile pipeline with dockers.
 
 ## Source
 - https://docs.docker.com/get-started/ - official docker documentation
