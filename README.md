@@ -1,4 +1,4 @@
-# jenkins-docker
+# jenkins-docker (Windows)
 
 # Read before
 [ALWAYS START FROM OFFICIAL DOCUMENTAION!!! - click it](https://jenkins.io/doc/book/installing/)
