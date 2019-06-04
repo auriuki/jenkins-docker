@@ -20,7 +20,7 @@ because I decided to run Jenkins on Windows instead Linux.
 
 The last problem overflowing bitterness was problem with using Dockers in Jenkins.
 
-As a first solution I found *jenkins-withdocker* docker image, it was good, but it was still not perfect.
+As a first solution I found [*jenkins-withdocker*](https://github.com/getintodevops/jenkins-withdocker) docker image, it was good, but it was still not perfect.
 E.g. It didn't contain Blue Ocean, I was not sure that Image will be update all the time when new Jenkins is released. 
 This Docker images may be not up to date when you use global Docker repository 
 (it have to be rebuild every time when Jenkins releases new version). 
@@ -167,4 +167,3 @@ I just create it as the instruction. Please don't bother me with questions, prob
 - https://docs.docker.com/get-started/ - official docker documentation
 - https://docs.docker.com/docker-for-windows/install/ - Docker for windows - installation instruction
 - https://www.ictshore.com/devops/docker-jenkins-tutorial/ - how to setup newest jenkins in docker (without docker inside)
-- https://github.com/getintodevops/jenkins-withdocker - Dockerfile with docker inside (docker image jenkins-withdocker from global repository doesn't contain the newest jenkins - it need be build from this Jenkinsfile)
