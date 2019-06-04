@@ -7,7 +7,7 @@ It's strongly said to run Jenkins in Docker on Windows!!! **Don't even try run J
 ## Using Simple Docker for Jenkins with Docker inside
 Project contains instruction how to setup simple Docker container with Jenkins with Docker inside.
 It also contains simple Jenkinsfile and Dockerfile just to verify that Dockerfile from official repository is still working - it should.
-And it also shows how can you use Dockerfile(s) created for application in Jenkinsfile 
+And it also shows how you can use Dockerfile(s) created for application in Jenkinsfile 
 (this Dockerfile can contains instruction defining installation instruction for your application).
 Jenkinsfile run build of this Dockerfile.
 
