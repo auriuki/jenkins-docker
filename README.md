@@ -162,7 +162,7 @@ And that's it. You can open web browser, typ [http://localhost:8080](http://loca
 E.g. Open Blue ocean view, create new pipeline, use e.g. github, add token, project and that's it. You can run Jenkinsfile pipeline with dockers.
 
 ## Note
-I just create it as the instruction. Please don't bother me with questions, problems.
+I just create it as the instruction.
 
 ## Source
 - https://docs.docker.com/get-started/ - official docker documentation
