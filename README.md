@@ -33,7 +33,7 @@ with simple steps described in this README.
 Jenkins on Windows have problems with: 
 - running Jenkinsfiles  (error like: [Error response from daemon: the working directory ... is invalid, it needs to be an absolute path.](https://stackoverflow.com/a/48390638/11318366))
 - [wsl](https://docs.microsoft.com/en-us/windows/wsl/about) is not fully supported (problems with paths, tools visibility/execution) 
-- [dockers](https://issues.jenkins-ci.org/browse/JENKINS-50857) are not supported on windows (there are many other tickets)
+- dockers ([Docker on Windows](https://jenkins.io/projects/blueocean/roadmap/) -> [JENKINS-36776](https://issues.jenkins-ci.org/browse/JENKINS-36776)) are not supported on windows (there are many other tickets)
 
 I spent too much time on solving other integration problems between windows, wsl and docker, configuration, etc. 
 I decided to move Jenkins to linux using Dockers and it was a good choice.
