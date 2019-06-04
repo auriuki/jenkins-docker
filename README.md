@@ -6,10 +6,10 @@ It's strongly said to run Jenkins in Docker on Windows!!! **Don't even try run J
 
 ## Using Simple Docker for Jenkins with Docker inside
 Project contains instruction how to setup simple Docker container with Jenkins with Docker inside.
-It also contains simple Jenkinsfile and Dockerfile just to verify that Dockerfile from official the repository is still working - it should.
-And it also shows how can you use Dockerfile(s) created for application  in Jenkinsfile 
-(this Dockerfile can contains instruction how to install your application)
-and Jenkinsfile will run build of this Dockerfile. 
+It also contains simple Jenkinsfile and Dockerfile just to verify that Dockerfile from official repository is still working - it should.
+And it also shows how can you use Dockerfile(s) created for application in Jenkinsfile 
+(this Dockerfile can contains instruction defining installation instruction for your application).
+Jenkinsfile run build of this Dockerfile.
 
 ### About
 I was planning to run many applications like python scripts, java applications 
@@ -18,13 +18,12 @@ and preventing regression (e.g. block merge when build fail).
 I did not expect that I face so many issued only 
 because I decided to run Jenkins on Windows instead Linux.
 
-The last problem overflowing bitterness was problem with using dockers.
+The last problem overflowing bitterness was problem with using Dockers in Jenkins.
 
-As solution I found *jenkins-withdocker* docker image, but it was still not perfect.
-This docker images are not up to date when you use global docker repository 
+As a first solution I found *jenkins-withdocker* docker image, it was good, but it was still not perfect.
+E.g. It didn't contain Blue Ocean, I was not sure that Image will be update all the time when new Jenkins is released. 
+This Docker images may be not up to date when you use global Docker repository 
 (it have to be rebuild every time when Jenkins releases new version). 
-It cause requirement to manual plugin installation 
-and solving problems with plugins security after jenkins version upgrade, etc.
 
 #### Reason
 I created this repository to be able setup docker in the future 
@@ -36,14 +35,18 @@ Jenkins on Windows have problems with:
 - [wsl](https://docs.microsoft.com/en-us/windows/wsl/about) is not fully supported (problems with paths, tools visibility/execution) 
 - [dockers](https://issues.jenkins-ci.org/browse/JENKINS-50857) are not supported on windows (there are many other tickets)
 
-I spent too much time on solving integration between windows, wsl and docker, configuration, etc. so I decided to move Jenkins to linux using Dockers.
+I spent too much time on solving other integration problems between windows, wsl and docker, configuration, etc. 
+I decided to move Jenkins to linux using Dockers and it was a good choice.
 
 #### Solution
-The best solution turned out to be using the Docker image with Jenkins with Docker inside as it is suggested in official Jenkins documentation, so don't event try run Jenkins on Windows without Docker! 
-Well you can use it without Docker, but only for a simple tasks. 
+The best solution turned out to be using the Docker image with Jenkins with Docker inside 
+as it is suggested in the official Jenkins documentation, 
+so don't event try run Jenkins on Windows without Docker! 
+Well you can use it without Docker, but only for a simple tasks.
 
+Therefore, as the final solution I create this README to guide you how to setup easily working Jenkins on Windows.
 
-Therefore, as the solution I create this README to guide you how to setup easily working Jenkins on Windows.
+From Jenkins documentation: *"A new jenkinsci/blueocean image is published each time a new release of Blue Ocean is published."* ([link](https://jenkins.io/doc/book/installing/#downloading-and-running-jenkins-in-docker))
 
 # Installation
 ## Docker on Windows
