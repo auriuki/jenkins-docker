@@ -166,4 +166,4 @@ I just create it as the instruction. Please don't bother me with questions, prob
 ## Source
 - https://docs.docker.com/get-started/ - official docker documentation
 - https://docs.docker.com/docker-for-windows/install/ - Docker for windows - installation instruction
-- https://www.ictshore.com/devops/docker-jenkins-tutorial/ - how to setup newest jenkins in docker (without docker inside)
+- https://www.ictshore.com/devops/docker-jenkins-tutorial/ - how to setup newest jenkins in docker (**without** docker or blue ocean inside)
