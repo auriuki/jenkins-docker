@@ -10,7 +10,7 @@ It also contains simple Jenkinsfile and Dockerfile just to verify that Dockerfil
 And it also shows how you can use Dockerfile(s) created for application in Jenkinsfile 
 (this Dockerfile can contains instruction defining installation instruction for your application).
 Jenkinsfile run build of this Dockerfile.
-
+    
 ### About
 I was planning to run many applications like python scripts, java applications 
 and other in Docker on Jenkins using Jenkinsfiles to automate testing 
@@ -46,7 +46,8 @@ Well you can use it without Docker, but only for a simple tasks.
 
 Therefore, as the final solution I create this README to guide you how to setup easily working Jenkins on Windows.
 
-From Jenkins documentation: *"A new jenkinsci/blueocean image is published each time a new release of Blue Ocean is published."* ([link](https://jenkins.io/doc/book/installing/#downloading-and-running-jenkins-in-docker))
+## Used docker image freshness
+From Jenkins documentation: *"A new **jenkinsci/blueocean** image is published each time a new release of Blue Ocean is published."* ([link](https://jenkins.io/doc/book/installing/#downloading-and-running-jenkins-in-docker))
 
 # Installation
 ## Docker on Windows
@@ -64,7 +65,7 @@ From Jenkins documentation: *"A new jenkinsci/blueocean image is published each 
 4. Run application and login
 
 #### CPU Virtualization
-In order to run docker CPU Virtualization must be enabled. You can enable it in BIOS.
+In order to run docker CPU Virtualization must be enabled. You can enable it in the BIOS.
 Check if virtualization [is enabled](https://docs.docker.com/docker-for-windows/troubleshoot/#virtualization-must-be-enabled)
 
 ## Build docker image and run
@@ -91,7 +92,8 @@ Where:<br>
 - `-v /var/run/docker.sock:/var/run/docker.sock` - mount/bid docker sockets<br>
 - `--name jenkins` - alias for created container - e.g. to be able login docker machine easily<br>
 - `jenkinsci/blueocean` - name of docker used to create Jenkins - released everytime when new blue ocean is released <br>
-More details on official Jenkins documentation
+
+More details on the official Jenkins documentation
 
 ### Running created container
 ```bash
@@ -99,36 +101,42 @@ $ docker container start jenkins
 ```
 
 ### Removing container and image
-###### Listing running container
+##### Listing running container
 ```bash
-C:\Users\Yuki>docker ps
+$ docker ps
 CONTAINER ID        IMAGE                 COMMAND                  CREATED             STATUS              PORTS                                              NAMES
 42e3edd6087b        jenkinsci/blueocean   "/sbin/tini -- /usr/…"   12 minutes ago      Up 12 minutes       0.0.0.0:8080->8080/tcp, 0.0.0.0:50000->50000/tcp   jenkins
 ``````
-###### Stop container
-Stop container before removing. 
+##### Listing all container
+```bash
+$ docker container ls --all
+```
+
+##### Stop container
 ```bash
 $ docker container stop jenkins
 ```
-You can use Container ID instead alias name
-###### Remove container
-Stopping and removing container is required to be able rebuild docker (container)
+***Note:** You can use Container ID instead alias name*
+
+##### Remove container
 ```bash
 $ docker container rm jenkins
 ```
-###### Remove image
+***Note:** Stopping and removing container is also required to be able rebuild docker (container)*
+
+##### Remove image
 ```bash
 $ docker image rm jenkinsci/blueocean
 ``` 
 
-###### Bulk removing images and containers:
-Windows:
+##### Bulk removing images and containers:
+###### Windows:
 ```cmd
 @echo off
 FOR /f "tokens=*" %%i IN ('docker ps -aq') DO docker rm %%i
 FOR /f "tokens=*" %%i IN ('docker images --format "{{.ID}}"') DO docker rmi %%i
 ```
-Linux
+###### Linux
 ```bash
 #!/bin/bash
 # Delete all containers
@@ -144,12 +152,12 @@ $ docker system prune
 ## Jenkins configuration
 Open web browser and type address `localhost:8080` and follow instruction: [Unlocking Jenkins](https://jenkins.io/doc/book/installing/#unlocking-jenkins).<br/> 
 
-The `/var/jenkins_home/secrets/initialAdminPassword` file is located under mounted place. e.g. in my case it is `D:/Jenkins_docker/secrets/initialAdminPassword`
-(`/var/jenkins_home` is "mapped" to `D:/Jenkins_docker`)
+The `/var/jenkins_home/secrets/initialAdminPassword` file is located under mounted place. e.g. in my case it is `E:/Docker/Jenkins/secrets/initialAdminPassword`
+(`/var/jenkins_home` is "mapped" to `E:/Docker/Jenkins`)
 
 I suggest install without any plugins (select None) and add it later.
 
-And that's it. You can open webbrowser, typ [http://localhost:8080](http://localhost:8080) and start using jenkins with docker.<br>
+And that's it. You can open web browser, typ [http://localhost:8080](http://localhost:8080) and start using jenkins with docker.<br>
 E.g. Open Blue ocean view, create new pipeline, use e.g. github, add token, project and that's it. You can run Jenkinsfile pipeline with dockers.
 
 ## Note
