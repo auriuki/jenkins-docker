@@ -6,12 +6,15 @@ It's strongly said to run Jenkins in Docker on Windows!!! **Don't even try run J
 
 ## Using Simple Docker for Jenkins with Docker inside
 Project contains instruction how to setup simple Docker container with Jenkins with Docker inside.
-I also contains simple Jenkinsfile and Dockerfile just to verify that Docker file from official repository is still working - it should.
-And it also show how can you use Dockerfile(s) created for application (this Dockerfile can contains instruction how to install your application) in Jenkinsfile. 
+It also contains simple Jenkinsfile and Dockerfile just to verify that Dockerfile from official the repository is still working - it should.
+And it also shows how can you use Dockerfile(s) created for application  in Jenkinsfile 
+(this Dockerfile can contains instruction how to install your application)
+and Jenkinsfile will run build of this Dockerfile. 
 
 ### About
-I was planning to run many application like python projects 
-and other in Docker on Jenkins using Jenkinsfiles to automate delivery.
+I was planning to run many applications like python scripts, java applications 
+and other in Docker on Jenkins using Jenkinsfiles to automate testing 
+and preventing regression (e.g. block merge when build fail).
 I did not expect that I face so many issued only 
 because I decided to run Jenkins on Windows instead Linux.
 
@@ -27,7 +30,7 @@ and solving problems with plugins security after jenkins version upgrade, etc.
 I created this repository to be able setup docker in the future 
 with simple steps described in this README.
 
-##### Why Jenkins on windows in docker?
+##### Why Jenkins on Windows in Docker?
 Jenkins on Windows have problems with: 
 - running Jenkinsfiles  (error like: [Error response from daemon: the working directory ... is invalid, it needs to be an absolute path.](https://stackoverflow.com/a/48390638/11318366))
 - [wsl](https://docs.microsoft.com/en-us/windows/wsl/about) is not fully supported (problems with paths, tools visibility/execution) 
@@ -36,17 +39,17 @@ Jenkins on Windows have problems with:
 I spent too much time on solving integration between windows, wsl and docker, configuration, etc. so I decided to move Jenkins to linux using Dockers.
 
 #### Solution
-The best solution turned out to be use Docker image with Jenkins with Docker inside as it is suggested in official Jenkins documentation, so don't event try run Jenkins on Wondows without doceker! 
-Well you can use it without docker, but only for a simple tasks. 
+The best solution turned out to be using the Docker image with Jenkins with Docker inside as it is suggested in official Jenkins documentation, so don't event try run Jenkins on Windows without Docker! 
+Well you can use it without Docker, but only for a simple tasks. 
 
 
 Therefore, as the solution I create this README to guide you how to setup easily working Jenkins on Windows.
 
 # Installation
 ## Docker on Windows
-### Requirements:
+### Requirements (Docker requirements):
+- [Official docker requirements](https://docs.docker.com/datacenter/ucp/1.1/installation/system-requirements/)
 - CPU Virtualization enabled (read below)
-- Create account on docker.com (required to start docker - it allows to publish private docker image to repository - not needed but account is required)
 
 ### Instruction and detail: 
 [Install Docker Desktop for Windows](https://docs.docker.com/docker-for-windows/install/)
@@ -145,6 +148,9 @@ I suggest install without any plugins (select None) and add it later.
 
 And that's it. You can open webbrowser, typ [http://localhost:8080](http://localhost:8080) and start using jenkins with docker.<br>
 E.g. Open Blue ocean view, create new pipeline, use e.g. github, add token, project and that's it. You can run Jenkinsfile pipeline with dockers.
+
+## Note
+I just create it as the instruction. Please don't bother with questions, problems.
 
 ## Source
 - https://docs.docker.com/get-started/ - official docker documentation
